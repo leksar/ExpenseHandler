@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.io.*;
+import java.util.ArrayList;
 
 
 public class Main {
@@ -14,10 +15,10 @@ public class Main {
 
         ExpenseHandler expenseHandler = new ExpenseHandler();
         try {
-            String s = expenseHandler.read("expense.txt");
-            System.out.println(s);
-        }
-        catch (Exception e){
+            ArrayList<String> strings = new ArrayList<String>();
+            strings = expenseHandler.read("expense.txt");
+            for (String s : strings) System.out.println(s);
+        } catch(Exception e){
 
         }
 

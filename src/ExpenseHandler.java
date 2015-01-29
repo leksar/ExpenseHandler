@@ -1,9 +1,12 @@
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ExpenseHandler {
 
-    public static String read(String fileName) throws FileNotFoundException {
-        StringBuilder sb = new StringBuilder();
+    public static ArrayList<String> read(String fileName) throws FileNotFoundException {
+        ArrayList<String> strings = new ArrayList<String>();
+    //    StringBuilder sb = new StringBuilder();
         exists(fileName);
         File file = new File(fileName);
         try {
@@ -11,8 +14,9 @@ public class ExpenseHandler {
             try {
                 String s;
                 while ((s = in.readLine()) != null) {
-                    sb.append(s);
-                    sb.append("\n");
+                    strings.add(s);
+      //              sb.append(s);
+      //              sb.append("\n");
                 }
             } finally {
                 in.close();
@@ -21,7 +25,8 @@ public class ExpenseHandler {
             throw new RuntimeException(e);
         }
 
-        return sb.toString();
+    //    return sb.toString();
+        return strings;
     }
 
     private static void exists(String fileName) throws FileNotFoundException{
