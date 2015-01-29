@@ -6,26 +6,26 @@ public class ExpenseHandler {
 
     public static ArrayList<String> read(String fileName) throws FileNotFoundException {
         ArrayList<String> strings = new ArrayList<String>();
-    //    StringBuilder sb = new StringBuilder();
+    //    StringBuilder stringBuilder = new StringBuilder();
         exists(fileName);
         File file = new File(fileName);
         try {
-            BufferedReader in = new BufferedReader(new FileReader(file.getAbsolutePath()));
+            BufferedReader inputFile = new BufferedReader(new FileReader(file.getAbsolutePath()));
             try {
                 String s;
-                while ((s = in.readLine()) != null) {
+                while ((s =inputFile.readLine()) != null) {
                     strings.add(s);
-      //              sb.append(s);
-      //              sb.append("\n");
+      //              stringBuilder.append(s);
+      //              stringBuilder.append("\n");
                 }
             } finally {
-                in.close();
+                inputFile.close();
             }
         } catch (IOException e){
             throw new RuntimeException(e);
         }
 
-    //    return sb.toString();
+    //    return stringBuilder.toString();
         return strings;
     }
 

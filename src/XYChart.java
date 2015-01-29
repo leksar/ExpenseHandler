@@ -15,9 +15,9 @@ import java.util.Random;
  * Created by leksar on 23.01.2015.
  */
 public class XYChart extends JFrame{
-    public XYChart(String applicationTitle, String chartTitle){
+    public XYChart(String applicationTitle, String chartTitle, String fileName){
         super(applicationTitle);
-        XYSeriesCollection dataset = createDataset();
+        XYSeriesCollection dataset = createDataset(fileName);
 
         JFreeChart chart = createChart(dataset, chartTitle);
         ChartPanel chartPanel= new ChartPanel(chart);
@@ -27,7 +27,7 @@ public class XYChart extends JFrame{
 
     }
 
-    private XYSeriesCollection createDataset() {
+    private XYSeriesCollection createDataset(String fileName) {
         XYSeries dataset = new XYSeries("XY Chart");
         XYSeries dataset2 = new XYSeries("Chart 2");
         XYSeries dataset3 = new XYSeries("Chart 3");
