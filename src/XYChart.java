@@ -9,6 +9,8 @@ import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.util.Rotation;
 
 import javax.swing.*;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -29,23 +31,47 @@ public class XYChart extends JFrame{
 
     private XYSeriesCollection createDataset(String fileName) {
         XYSeries dataset = new XYSeries("XY Chart");
-        XYSeries dataset2 = new XYSeries("Chart 2");
-        XYSeries dataset3 = new XYSeries("Chart 3");
-        Random rand = new Random();
 
-        for (int i = 0; i < 1000; i++) {
-            dataset.add(rand.nextDouble()*100,rand.nextDouble()*33+66);
-            dataset2.add(rand.nextDouble()*100,rand.nextDouble()*33+33);
-            dataset3.add(rand.nextDouble()*100,rand.nextDouble()*33);
+        ExpenseHandler expenseHandler = new ExpenseHandler();
+        try {
+            ArrayList<String> strings = expenseHandler.read(fileName);
+
+            double i = 0D;
+            for (String s : strings) {
+
+                String[] parts = s.split(";");
+  //              dataset.add(Double.parseDouble(parts[5].replaceAll("\"","").replaceAll(",",".")),Double.parseDouble(parts[6].replaceAll("\"","").replaceAll(",",".")));
+                  if (parts[0].equals("\"Продукты\"")) {
+                      dataset.add(i,Double.parseDouble(parts[6].replaceAll("\"","").replaceAll(",",".")));
+                      System.out.println("added element " + i + " value = " + parts[6]);
+                      i = i + 1D;
+                  }
+
+            }
+            XYSeriesCollection result = new XYSeriesCollection();
+            result.addSeries(dataset);
+            return result;
         }
+        catch (FileNotFoundException e) {
+            System.out.println(e + " in createDataset");
+        }
+//        XYSeries dataset2 = new XYSeries("Chart 2");
+//        XYSeries dataset3 = new XYSeries("Chart 3");
+//        Random rand = new Random();
+//
+//        for (int i = 0; i < 1000; i++) {
+//            dataset.add(rand.nextDouble()*100,rand.nextDouble()*33+66);
+//            dataset2.add(rand.nextDouble()*100,rand.nextDouble()*33+33);
+//            dataset3.add(rand.nextDouble()*100,rand.nextDouble()*33);
+//        }
 
 
-
-        XYSeriesCollection result = new XYSeriesCollection();
-        result.addSeries(dataset);
-        result.addSeries(dataset2);
-        result.addSeries(dataset3);
-        return result;
+//        XYSeriesCollection result = new XYSeriesCollection();
+//        result.addSeries(dataset);
+//        result.addSeries(dataset2);
+//        result.addSeries(dataset3);
+//        return result;
+        return null;
     }
 
     private JFreeChart createChart(XYSeriesCollection dataset, String title){

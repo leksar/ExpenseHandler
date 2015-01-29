@@ -8,10 +8,9 @@ public class Main {
 //        PieChart demo = new PieChart("Comparison", "Which operating system are you using?");
 //        demo.pack();
 //        demo.setVisible(true);
-
-//        XYChart demo2 = new XYChart("График", "Тестовый график", "expense.txt");
-//        demo2.pack();
-//        demo2.setVisible(true);
+        XYChart demo2 = new XYChart("График", "Тестовый график", "expense.txt");
+        demo2.pack();
+        demo2.setVisible(true);
 
         //TODO: Delete
 //        ExpenseHandler expenseHandler = new ExpenseHandler();
@@ -24,7 +23,7 @@ public class Main {
 //
 //            }
 //        } catch(Exception e){
-//
+//            System.out.println("Error ! " + e);
 //        }
 
 
