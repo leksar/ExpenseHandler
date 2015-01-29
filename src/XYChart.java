@@ -36,14 +36,16 @@ public class XYChart extends JFrame{
         try {
             ArrayList<String> strings = expenseHandler.read(fileName);
 
-            double i = 0D;
+            double i = 1D;
+            double value = 0;
             for (String s : strings) {
 
                 String[] parts = s.split(";");
   //              dataset.add(Double.parseDouble(parts[5].replaceAll("\"","").replaceAll(",",".")),Double.parseDouble(parts[6].replaceAll("\"","").replaceAll(",",".")));
                   if (parts[0].equals("\"Продукты\"")) {
-                      dataset.add(i,Double.parseDouble(parts[6].replaceAll("\"","").replaceAll(",",".")));
-                      System.out.println("added element " + i + " value = " + parts[6]);
+                      value = value + Double.parseDouble(parts[6].replaceAll("\"", "").replaceAll(",", "."));
+                      dataset.add(i, value/i);
+                      System.out.println("added element " + i + " = " + parts[6] + " value = " + value);
                       i = i + 1D;
                   }
 
