@@ -1,8 +1,5 @@
 import java.io.*;
 
-/**
- * Created by leksar on 27.01.2015.
- */
 public class ExpenseHandler {
 
     public static String read(String fileName) throws FileNotFoundException {
