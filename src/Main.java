@@ -1,9 +1,7 @@
 import javax.swing.*;
 import java.io.*;
 
-/**
- * Created by leksar on 22.01.2015.
- */
+
 public class Main {
     public static void main(String[] args) {
 //        PieChart demo = new PieChart("Comparison", "Which operating system are you using?");
