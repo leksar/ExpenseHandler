@@ -14,24 +14,15 @@ public class Main {
 //        demo2.pack();
 //        demo2.setVisible(true);
 
-        File file = new File("superTextFile.txt");
-
+        ExpenseHandler expenseHandler = new ExpenseHandler();
         try {
-            if (!file.exists()) file.createNewFile();
-
-            PrintWriter out = new PrintWriter(file.getAbsoluteFile());
-
-            try {
-                out.print("HAHAHAHA");
-            } finally {
-                out.close();
-            }
-
+            String s = expenseHandler.read("expense.txt");
+            System.out.println(s);
         }
         catch (Exception e){
-            throw new RuntimeException(e);
+
         }
 
-        System.out.println("done");
+
     }
 }
