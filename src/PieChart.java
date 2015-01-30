@@ -9,9 +9,6 @@ import org.jfree.util.Rotation;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Created by leksar on 22.01.2015.
- */
 public class PieChart extends JFrame{
 //    private static final long serialVersionUID = 1L;
 
