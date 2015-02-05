@@ -1,3 +1,6 @@
+import org.jfree.data.time.RegularTimePeriod;
+import org.jfree.data.time.TimeSeries;
+import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
@@ -34,7 +37,7 @@ public class ExpenseHandler {
         }
     }
 
-    public XYSeriesCollection createDatasetXYChart(String fileName){
+    public XYSeriesCollection createXYSeriesDataset(String fileName){
         XYSeries dataset = new XYSeries("XY Chart");
         try {
             ArrayList<String> strings = this.read(fileName);
@@ -47,7 +50,7 @@ public class ExpenseHandler {
                 if (parts[0].equals("\"Продукты\"")) {
                     value = value + Double.parseDouble(parts[6].replaceAll("\"", "").replaceAll(",", "."));
                     dataset.add(i, value/i);
-                    System.out.println("added element " + i + " = " + parts[6] + " value = " + value);
+ //                 System.out.println("added element " + i + " = " + parts[6] + " value = " + value);
                     i = i + 1D;
                 }
 
@@ -60,6 +63,14 @@ public class ExpenseHandler {
             System.out.println(e + " in createDataset");
         }
         return null;
+    }
+
+    public TimeSeriesCollection createTimeSeriesDataset(String fileName){
+        TimeSeries dataset = new TimeSeries("Time Chart");
+
+        TimeSeriesCollection result = new TimeSeriesCollection();
+        result.addSeries(dataset);
+        return result;
     }
 
 

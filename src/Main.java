@@ -10,5 +10,9 @@ public class Main {
         demo2.pack();
         demo2.setVisible(true);
 
+        TimeSeriesChart demo3 = new TimeSeriesChart("График по времени","Тест","exprense.txt");
+        demo3.pack();
+        demo3.setVisible(true);
+
     }
 }
