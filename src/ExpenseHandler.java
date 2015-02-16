@@ -1,6 +1,4 @@
-import org.jfree.data.time.RegularTimePeriod;
-import org.jfree.data.time.TimeSeries;
-import org.jfree.data.time.TimeSeriesCollection;
+import org.jfree.data.time.*;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
@@ -67,6 +65,11 @@ public class ExpenseHandler {
 
     public TimeSeriesCollection createTimeSeriesDataset(String fileName){
         TimeSeries dataset = new TimeSeries("Time Chart");
+
+        //for testing
+
+        dataset.add(new Day(15,3,2001), 5d);
+        dataset.add(new Day(18,3,2001), 7d);
 
         TimeSeriesCollection result = new TimeSeriesCollection();
         result.addSeries(dataset);

@@ -16,7 +16,7 @@ public class TimeSeriesChart extends JFrame{
         super(applicationTitle);
 
         ExpenseHandler expenseHandler = new ExpenseHandler();
-        XYSeriesCollection dataset = expenseHandler.createXYSeriesDataset(fileName);
+        TimeSeriesCollection dataset = expenseHandler.createTimeSeriesDataset(fileName);
 
         TimeSeriesCollection dataset2 = new TimeSeriesCollection();
 
@@ -27,7 +27,7 @@ public class TimeSeriesChart extends JFrame{
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
-    private JFreeChart createChart(XYSeriesCollection dataset, String title){
+    private JFreeChart createChart(TimeSeriesCollection dataset, String title){
         JFreeChart chart = ChartFactory.createTimeSeriesChart(
                 title,
                 "Time",
