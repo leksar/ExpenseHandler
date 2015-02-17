@@ -12,11 +12,11 @@ import javax.swing.*;
  */
 public class TimeSeriesChart extends JFrame{
 
-    public TimeSeriesChart(String applicationTitle, String chartTitle, String fileName){
+    public TimeSeriesChart(String applicationTitle, String chartTitle, String fileName, String itemCost){
         super(applicationTitle);
 
         ExpenseHandler expenseHandler = new ExpenseHandler();
-        TimeSeriesCollection dataset = expenseHandler.createTimeSeriesDataset(fileName);
+        TimeSeriesCollection dataset = expenseHandler.createTimeSeriesDataset(fileName, itemCost);
 
         TimeSeriesCollection dataset2 = new TimeSeriesCollection();
 

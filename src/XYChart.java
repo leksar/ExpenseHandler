@@ -6,11 +6,11 @@ import org.jfree.data.xy.XYSeriesCollection;
 import javax.swing.*;
 
 public class XYChart extends JFrame{
-    public XYChart(String applicationTitle, String chartTitle, String fileName){
+    public XYChart(String applicationTitle, String chartTitle, String fileName, String costItem){
         super(applicationTitle);
 
         ExpenseHandler expenseHandler = new ExpenseHandler();
-        XYSeriesCollection dataset = expenseHandler.createXYSeriesDataset(fileName);
+        XYSeriesCollection dataset = expenseHandler.createXYSeriesDataset(fileName, costItem);
 
         JFreeChart chart = createChart(dataset, chartTitle);
         ChartPanel chartPanel= new ChartPanel(chart);

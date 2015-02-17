@@ -4,6 +4,8 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 
 public class ExpenseHandler {
 
@@ -35,7 +37,7 @@ public class ExpenseHandler {
         }
     }
 
-    public XYSeriesCollection createXYSeriesDataset(String fileName){
+    public XYSeriesCollection createXYSeriesDataset(String fileName, String costItem){
         XYSeries dataset = new XYSeries("XY Chart");
         try {
             ArrayList<String> strings = this.read(fileName);
@@ -45,7 +47,7 @@ public class ExpenseHandler {
             for (String s : strings) {
 
                 String[] parts = s.split(";");
-                if (parts[0].equals("\"Продукты\"")) {
+                if (parts[0].equals(costItem)) {
                     value = value + Double.parseDouble(parts[6].replaceAll("\"", "").replaceAll(",", "."));
                     dataset.add(i, value/i);
  //                 System.out.println("added element " + i + " = " + parts[6] + " value = " + value);
@@ -58,18 +60,36 @@ public class ExpenseHandler {
             return result;
         }
         catch (FileNotFoundException e) {
-            System.out.println(e + " in createDataset");
+            System.out.println(e + " in createXYSeriesDataset");
         }
         return null;
     }
 
-    public TimeSeriesCollection createTimeSeriesDataset(String fileName){
+    public TimeSeriesCollection createTimeSeriesDataset(String fileName, String itemCost){
         TimeSeries dataset = new TimeSeries("Time Chart");
+        try {
+            ArrayList<String> strings = this.read(fileName);
+            boolean firstString = true;
+            for (String s : strings) {
+                if (firstString) {
+                    String[] parts = s.split(";");
+                    System.out.println(parts[0]);
+                    if (parts[0].equals(itemCost)){
+                        firstString = false;
+                    }
 
-        //for testing
+                }
 
-        dataset.add(new Day(15,3,2001), 5d);
-        dataset.add(new Day(18,3,2001), 7d);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(e + " in createTimeSeriesDataset");
+        }
+
+//        for (int i = 1; i < 50; i++) {
+//            calendar.add(Calendar.HOUR,24);
+//            dataset.add(new Day(calendar.getTime().getDate(), 1 + calendar.getTime().getMonth(), 1900 + calendar.getTime().getYear()), i);
+//
+//        }
 
         TimeSeriesCollection result = new TimeSeriesCollection();
         result.addSeries(dataset);
