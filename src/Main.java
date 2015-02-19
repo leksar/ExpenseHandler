@@ -10,11 +10,11 @@ public class Main {
 //        demo.pack();
 //        demo.setVisible(true);
 //
-        XYChart demo2 = new XYChart("График", "Тестовый график", "expense.txt", "\"Продукты\"");
-        demo2.pack();
-        demo2.setVisible(true);
+//        XYChart demo2 = new XYChart("График", "Тестовый график", "expense.txt", "Алкоголь");
+//        demo2.pack();
+//        demo2.setVisible(true);
 
-        TimeSeriesChart demo3 = new TimeSeriesChart("График по времени","Тест","expense.txt", "\"Продукты\"");
+        TimeSeriesChart demo3 = new TimeSeriesChart("График по времени","Тест","expense.txt", "Алкоголь");
         demo3.pack();
         demo3.setVisible(true);
 
@@ -27,6 +27,8 @@ public class Main {
         System.out.println(calendar.getTime().getDate());
         System.out.println(calendar.getTime().getMonth());
         System.out.println(calendar.getTime().getYear());
-        System.out.println(new Day(18,3,2001));
+        System.out.println((new Day(18,3,2001).compareTo(new Day(19,3,2002))));
+        calendar.setTimeInMillis(123123l);
+        System.out.println(calendar.getTime());
     }
 }
