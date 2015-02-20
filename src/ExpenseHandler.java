@@ -71,9 +71,10 @@ public class ExpenseHandler {
             ArrayList<String> strings = this.read(fileName);
             HashMap<Date, Double> mapData = new HashMap<Date, Double>();
             DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            Date firstDate = new Date();
+            Calendar firstDate = Calendar.getInstance();
             for (String s : strings) {
                 String[] parts = s.split(";");
+                firstDate.setTime(format.parse(parts[2]));
                 if (parts[0].equals(itemCost)) {
                     double prevValue = 0d;
                     try {
@@ -82,7 +83,7 @@ public class ExpenseHandler {
                     }
 
                     mapData.put(format.parse(parts[2]),prevValue + Double.parseDouble(parts[6].replaceAll(",", ".")));
-                    firstDate = format.parse(parts[2]);
+
                 }
 
             }
@@ -95,14 +96,15 @@ public class ExpenseHandler {
 
             sortedMap.putAll(mapData);
             double sum = 0;
-            int iterator = 0;
-            int daysFromFirstDate = 0;
+            double daysFromStart;
+
             for (HashMap.Entry<Date, Double> elem : sortedMap.entrySet()) {
-                iterator++;
-                daysFromFirstDate = elem.getKey().compareTo(firstDate);
+                daysFromStart =(elem.getKey().getTime() - firstDate.getTimeInMillis())/ (24 * 60 * 60 * 1000);
+                if (daysFromStart < 1d) daysFromStart = 1d;
                 sum = sum + elem.getValue();
-                dataset.add(new Day(elem.getKey().getDate(), 1+ elem.getKey().getMonth(), 1900 + elem.getKey().getYear()), sum/iterator);
-                System.out.println("На дату " + elem.getKey() + " Добавлено значение " + sum/iterator);
+                dataset.add(new Day(elem.getKey().getDate(), 1+ elem.getKey().getMonth(), 1900 + elem.getKey().getYear()), 30*sum/daysFromStart);
+                System.out.println("Sum = " + sum);
+                System.out.println("daysFromStart = " + daysFromStart);
             }
 
         } catch (Exception e) {
