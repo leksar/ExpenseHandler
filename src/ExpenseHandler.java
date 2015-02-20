@@ -66,7 +66,10 @@ public class ExpenseHandler {
     }
 
     public TimeSeriesCollection createTimeSeriesDataset(String fileName, String itemCost){
-        TimeSeries dataset = new TimeSeries("Time Chart");
+        TimeSeries dataset = new TimeSeries("All time");
+        TimeSeries dataset6m = new TimeSeries("6 months");
+        TimeSeries dataset3m = new TimeSeries("3 months");
+        TimeSeries dataset1m = new TimeSeries("1 month");
         try {
             ArrayList<String> strings = this.read(fileName);
             HashMap<Date, Double> mapData = new HashMap<Date, Double>();
@@ -103,8 +106,20 @@ public class ExpenseHandler {
                 if (daysFromStart < 1d) daysFromStart = 1d;
                 sum = sum + elem.getValue();
                 dataset.add(new Day(elem.getKey().getDate(), 1+ elem.getKey().getMonth(), 1900 + elem.getKey().getYear()), 30*sum/daysFromStart);
-                System.out.println("Sum = " + sum);
-                System.out.println("daysFromStart = " + daysFromStart);
+
+                double sum6m = 0, sum3m = 0, sum1m = 0;
+                double difference;
+                for (HashMap.Entry<Date, Double> elem2 : sortedMap.entrySet()) {
+                    difference = (elem.getKey().getTime() - elem2.getKey().getTime()) / (24 * 60 * 60 * 1000);
+                    if (difference < 6*30 && difference > -1) sum6m += elem2.getValue();
+                    if (difference < 3*30 && difference > -1) sum3m += elem2.getValue();
+                    if (difference < 1*30 && difference > -1) sum1m += elem2.getValue();
+                }
+
+//                dataset6m.add(new Day(elem.getKey().getDate(), 1+ elem.getKey().getMonth(), 1900 + elem.getKey().getYear()), 30*(sum6m/(6*30)));
+                dataset6m.add(new Day(elem.getKey().getDate(), 1+ elem.getKey().getMonth(), 1900 + elem.getKey().getYear()), 30*(sum6m/(daysFromStart < 180 ? daysFromStart : 6*30)));
+                dataset3m.add(new Day(elem.getKey().getDate(), 1+ elem.getKey().getMonth(), 1900 + elem.getKey().getYear()), 30*(sum3m/(daysFromStart < 3*30 ? daysFromStart : 3*30)));
+                dataset1m.add(new Day(elem.getKey().getDate(), 1+ elem.getKey().getMonth(), 1900 + elem.getKey().getYear()), 30*(sum1m/(daysFromStart < 1*30 ? daysFromStart : 1*30)));
             }
 
         } catch (Exception e) {
@@ -113,6 +128,9 @@ public class ExpenseHandler {
 
         TimeSeriesCollection result = new TimeSeriesCollection();
         result.addSeries(dataset);
+        result.addSeries(dataset6m);
+        result.addSeries(dataset3m);
+        result.addSeries(dataset1m);
         return result;
     }
 
