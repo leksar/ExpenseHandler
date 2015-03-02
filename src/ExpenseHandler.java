@@ -50,7 +50,6 @@ public class ExpenseHandler {
                 if (parts[0].equals(costItem)) {
                     value = value + Double.parseDouble(parts[6].replaceAll(",", "."));
                     dataset.add(i, value/i);
- //                 System.out.println("added element " + i + " = " + parts[6] + " value = " + value);
                     i = i + 1D;
                 }
 
@@ -90,6 +89,13 @@ public class ExpenseHandler {
                 }
 
             }
+
+            try {
+                double simpleCheck = mapData.get(new Date());
+            }catch (Exception e) {
+                mapData.put(new Date(),0d);
+            }
+
             TreeMap<Date, Double> sortedMap = new TreeMap<Date, Double>(new Comparator<Date>() {
                 @Override
                 public int compare(Date o1, Date o2) {
@@ -116,7 +122,6 @@ public class ExpenseHandler {
                     if (difference < 1*30 && difference > -1) sum1m += elem2.getValue();
                 }
 
-//                dataset6m.add(new Day(elem.getKey().getDate(), 1+ elem.getKey().getMonth(), 1900 + elem.getKey().getYear()), 30*(sum6m/(6*30)));
                 dataset6m.add(new Day(elem.getKey().getDate(), 1+ elem.getKey().getMonth(), 1900 + elem.getKey().getYear()), 30*(sum6m/(daysFromStart < 180 ? daysFromStart : 6*30)));
                 dataset3m.add(new Day(elem.getKey().getDate(), 1+ elem.getKey().getMonth(), 1900 + elem.getKey().getYear()), 30*(sum3m/(daysFromStart < 3*30 ? daysFromStart : 3*30)));
                 dataset1m.add(new Day(elem.getKey().getDate(), 1+ elem.getKey().getMonth(), 1900 + elem.getKey().getYear()), 30*(sum1m/(daysFromStart < 1*30 ? daysFromStart : 1*30)));
